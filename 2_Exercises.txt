@@ -1,0 +1,50 @@
+Zu der jeweiligen Frage ist der jeweilige Datenbank-Befehl anzugeben.
+
+1) Wie viele Autoren befinden sich in der Tabelle 'Autoren'?
+
+2) Welche Id hat der Autor mit dem Namen J.R.R. Tolkien?
+
+3) Geben Sie die gesamte Bücherliste aus (Tabelle 'Bücher').
+
+4) Welche Bücher hat der Autor mit der Id=2 geschrieben? Das Ergebnis soll nach dem Erscheinungsjahr aufsteigend sortiert sein.
+
+5) Welche ISBN hat das Buch 'Der Alchimist'?
+
+6) Geben Sie alle Buchtitel der englischsprachigen Bücher aus?
+
+7) Wie viele Bücher vom Diogenes-Verlag befinden sich in der Tabelle 'Bücher'? (Erwartetes Ergebnis=2)
+
+8) Welche Bücher sind 2019 erschienen?
+
+9) Welche Bücher sind seit 2015 erschienen?
+
+10) Welche Bücher sind in den Jahren 1997 und 2008 erschienen?
+
+11) Geben Sie die neuesten 3 Buchtitel aus.
+
+12) Suchen Sie nach den Büchern von Stephen King. Geben Sie die Buchtitel aus.
+
+13) Wie heißt der Autor, der das Buch 'Introduction to Algorithms' geschrieben hat?
+
+14) Geben Sie eine Liste alle Bücher (Titel) mit dem jeweiligen Autor aus. Die Bücher sollen nach dem Nachnamen und Vornamen des Autors aufsteigend sortiert sein.
+
+15) Welche Bücher hat der Autor Marc Elsberg geschrieben? Geben Sie die ISBN, den Buchtitel, den Vor- und Nachnamen des Autors und das Erscheinungsjahr aus (in dieser Reihenfolge). Sortieren Sie das Ergebnis so, dass das aktuellste Buch ganz oben steht.
+
+16) Wie viele Bücher die in deutscher Sprache und wie viele Bücher die in englischer Sprache geschrieben sind befinden sich in der Datenbank?
+
+17) In welchen Jahren sind 2 oder mehr Bücher erschienen?
+
+18) Wie viele Bücher sind von den einzelnen Verlagen in der Datenbank? Geben Sie den Verlag mit der Anzahl seiner Bücher aus. (Diogenes und Diogenes Verlag sollen jeweils mit einem Buch vorkommen.)
+
+19) Geben Sie den Vornamen, den Nachnamen und die Anzahl Bücher aus, die der jeweilige Autor geschrieben hat. Sortieren Sie das Ergebnis nach der Anzahl Bücher absteigend. Die Spalte mit der Anzahl soll 'Anzahl Bücher' heißen.
+
+20) Von welchen Autor scheint kein Buch in der Datenbank zu sein?
+
+21) Fügen Sie der Datenbank ein Buch hinzu: ISBN: 978-3423620000, Titel: Sofies Welt, Erscheinungsjahr: 2000, Verlag: dtv Verlagsgesellschaft, Autor: Jostein Gaarder
+
+22) Bei dem Buchtitel 'Der Herr der Ringe. Die Gefährten' hat sich ein Rechtschreibfehler eingeschlichen. Korrigieren Sie das Wort 'Gefähren' auf 'Gefährten'.
+
+23) Derzeit kann einem Buch nur ein Autor zugeordnet werden. Es sollen aber mehrere Autoren einem Buch zugeordnet werden können.
+      a) Beschreiben Sie in wenigen Worten die Konsequenz dieser neuen Anforderung. Zeichnen Sie ein ER-Diagramm mit den erforderlichen Änderungen.
+      b) Erstellen Sie ein Script für die Erstellung der neuen Datenbankstruktur.
+      c) Fügen Sie den ersten Datensatz der alten Datenbank in die neue Datenbank ein. Erstellen Sie eine Abfrage, die alle Autoren mit ihren Büchern ausgibt.
