@@ -1,0 +1,148 @@
+1) Wie viele Autoren befinden sich in der Tabelle 'Autoren'?
+select count(*) from autoren
+
+2) Welche Id hat der Autor mit dem Namen J.R.R. Tolkien?
+select ID from autoren where vorname='J.R.R.' and nachname='Tolkien'
+
+3) Geben Sie die gesamte Bücherliste aus (Tabelle 'Bücher').
+select * from buecher
+
+4) Welche Bücher hat der Autor mit der Id=2 geschrieben? Das Ergebnis soll nach dem Erscheinungsjahr aufsteigend sortiert sein.
+select * from buecher where autor=2 order by erscheinungsjahr
+
+5) Welche ISBN hat das Buch 'Der Alchimist'?
+select isbn from buecher where titel='Der Alchimist'
+
+6) Geben Sie alle Buchtitel der englischsprachigen Bücher aus?
+select titel from buecher where sprache='Englisch'
+
+7) Wie viele Bücher vom Diogenes-Verlag befinden sich in der Tabelle 'Bücher'? (Erwartetes Ergebnis=2)
+select count(*) from buecher where verlag like '%Diogenes%'
+
+8) Welche Bücher sind 2019 erschienen?
+select * from buecher where erscheinungsjahr=2019
+
+9) Welche Bücher sind seit 2015 erschienen?
+select * from buecher where erscheinungsjahr>=2015
+
+10) Welche Bücher sind in den Jahren 1997 und 2008 erschienen?
+select * from buecher where erscheinungsjahr=1997 or erscheinungsjahr=2008
+
+select * from buecher where erscheinungsjahr=1997
+union all
+select * from buecher where erscheinungsjahr=2008
+
+11) Geben Sie die neuesten 3 Buchtitel aus.
+select top 3 erscheinungsjahr, titel
+from buecher
+order by erscheinungsjahr desc, titel
+
+12) Suchen Sie nach den Büchern von Stephen King. Geben Sie die Buchtitel aus.
+select b.titel
+from buecher b inner join autoren a on b.autor=a.id
+where a.nachname='King' and a.vorname='Stephen'
+
+13) Wie heißt der Autor, der das Buch 'Introduction to Algorithms' geschrieben hat?
+select a.vorname, a.nachname
+from buecher b inner join autoren a on b.autor=a.id
+where b.titel='Introduction to Algorithms'
+
+14) Geben Sie eine Liste alle Bücher (Titel) mit dem jeweiligen Autor aus. Die Bücher sollen nach dem Nachnamen und Vornamen des Autors aufsteigend sortiert sein.
+select b.titel, a.vorname, a.nachname
+from buecher b inner join autoren a on b.autor=a.id
+order by a.nachname, a.vorname
+
+15) Welche Bücher hat der Autor Marc Elsberg geschrieben? Geben Sie die ISBN, den Buchtitel, den Vor- und Nachnamen des Autors und das Erscheinungsjahr aus (in dieser Reihenfolge). Sortieren Sie das Ergebnis so, dass das aktuellste Buch ganz oben steht.
+select b.isbn, b.titel, a.vorname, a.nachname, b.erscheinungsjahr
+from buecher b inner join autoren a on b.autor=a.id
+where a.vorname='Marc' and a.nachname='Elsberg'
+order by b.erscheinungsjahr desc
+
+16) Wie viele Bücher die in deutscher Sprache und wie viele Bücher die in englischer Sprache geschrieben sind befinden sich in der Datenbank?
+select sprache, count(*)
+from buecher
+group by sprache
+
+select 'Deutsch', count(*) from buecher where sprache='Deutsch'
+union all
+select 'Englisch', count(*) from buecher where sprache='Englisch'
+
+17) In welchen Jahren sind 2 oder mehr Bücher erschienen?
+select erscheinungsjahr, count(*)
+from buecher
+group by erscheinungsjahr
+having count(*)>=2
+
+18) Wie viele Bücher sind von den einzelnen Verlagen in der Datenbank? Geben Sie den Verlag mit der Anzahl seiner Bücher aus. (Diogenes und Diogenes Verlag sollen jeweils mit einem Buch vorkommen.)
+select verlag, count(*)
+from buecher
+group by verlag
+order by verlag
+
+19) Geben Sie den Vornamen, den Nachnamen und die Anzahl Bücher aus, die der jeweilige Autor geschrieben hat. Sortieren Sie das Ergebnis nach der Anzahl Bücher absteigend. Die Spalte mit der Anzahl soll 'Anzahl Bücher' heißen.
+select a.vorname, a.nachname, count(*) as 'Anzahl Bücher'
+from buecher b inner join autoren a on b.autor=a.id
+group by a.vorname, a.nachname
+order by count(*) desc
+
+20) Von welchen Autor scheint kein Buch in der Datenbank zu sein?
+select a.vorname, a.nachname
+from buecher b right outer join autoren a on b.autor=a.id
+where b.autor is null
+
+select *
+from autoren a
+where not exists (select * from buecher b where b.autor=a.id)
+
+21) Fügen Sie der Datenbank ein Buch hinzu: ISBN: 978-3423620000, Titel: Sofies Welt, Erscheinungsjahr: 2000, Verlag: dtv Verlagsgesellschaft, Autor: Jostein Gaarder
+insert into Buecher (ISBN, Titel, Erscheinungsjahr, Verlag, Sprache, Autor) values ('978-3423620000', 'Sofies Welt', 2000, 'dtv Verlagsgesellschaft', 'Deutsch', 9 );
+
+22) Bei dem Buchtitel 'Der Herr der Ringe. Die Gefährten' hat sich ein Rechtschreibfehler eingeschlichen. Korrigieren Sie das Wort 'Gefähren' auf 'Gefährten'.
+update Buecher set titel='Der Herr der Ringe. Die Gefährten' where isbn='978-3908934011'
+
+23) Derzeit kann einem Buch nur ein Autor zugeordnet werden. Es sollen aber mehrere Autoren einem Buch zugeordnet werden können.
+      a) Beschreiben Sie in wenigen Worten die Konsequenz dieser neuen Anforderung. Zeichnen Sie ein ER-Diagramm mit den erforderlichen Änderungen.
+      b) Erstellen Sie ein Script für die Erstellung der neuen Datenbankstruktur.
+      c) Fügen Sie den ersten Datensatz der alten Datenbank in die neue Datenbank ein. Erstellen Sie eine Abfrage, die alle Autoren mit ihren Büchern ausgibt.
+
+a) Es ergibt sich eine n:n-Beziehung, die durch eine zusätzliche Tabelle aufgelöst werden muss. Eine Lösung ist, für die neue Tabelle Buchautoren einen zusammengesetzten Schlüssel zu definieren (siehe Abbildung). Eine andere Möglichkeit wäre, einen künstlichen Schlüssel anzulegen.
+
+AUTOREN                 BUCHAUTOREN                  BUECHER
+ID (*)    <---------->> Autor (*)          |-------> ISBN (*)
+Nachname                Buch (*) <<--------|         Titel
+Vorname                                              Erscheinungsjahr
+                                                     Verlag
+                                                     Sprache
+
+b)
+
+CREATE TABLE Autoren (
+  Id int IDENTITY(1,1) PRIMARY KEY
+  , Nachname varchar(255) NOT NULL
+  , Vorname varchar(255) NOT NULL
+);
+
+CREATE TABLE Buecher (
+  ISBN varchar(255) PRIMARY KEY
+  , Titel varchar(255) NOT NULL
+  , Erscheinungsjahr int NOT NULL
+  , Verlag varchar(255) NOT NULL
+  , Sprache varchar(32) NOT NULL
+);
+
+CREATE TABLE Buchautoren(
+  Autor int NOT NULL FOREIGN KEY REFERENCES Autoren(Id)
+  , Buch varchar(255) NOT NULL FOREIGN KEY REFERENCES Buecher(ISBN)
+  , PRIMARY KEY (Autor, Buch)
+);
+
+c)
+
+insert into Autoren (Nachname, Vorname) values ('Elsberg', 'Marc');
+insert into Buecher (ISBN, Titel, Erscheinungsjahr, Verlag, Sprache) values ('978-3442380299', 'BLACKOUT - Morgen ist es zu spät', 2013, 'Blanvalet Taschenbuch Verlag', 'Deutsch');
+insert into Buchautoren (Autor, Buch) values (1, '978-3442380299');
+
+select a.vorname, a.nachname, b.*
+from autoren a
+inner join buchautoren ba on a.id = ba.autor
+inner join buecher b on ba.buch = b.isbn
