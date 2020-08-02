@@ -46,6 +46,11 @@ Fragen zu Datenbanken
     iv.	Sonstige Funktionen
   …und teste diese mit dem Scott-Tiger-Datenbankschema.
 
+8. Datenbankunterschiede
+  a. Stelle die wichtigsten Datentypen (Texte, Zahlen, Datumswerte) der unterschiedlichen Datenbanken mit einer Beschreibung gegenüber.
+  b. Stelle die wichtigsten Funktionen der unterschiedlichen Datenbanken mit einer Beschreibung gegenüber.
+  c. Stelle die Verfahren für die Generierung eines künstlichen Schlüssels der unterschiedlichen Datenbanken gegenüber. Zeigen Sie auch das entsprechende INSERT-Statement.
+
 
 ---
 Scott-Tiger-Datenbankschema (für SQLServer)
