@@ -1,0 +1,109 @@
+Fragen zu Datenbanken
+
+1.	Referentielle Integrität
+  a.	Was versteht man unter Referentieller Integrität? 
+  b.	Wie stellt die Datenbank die Referentielle Integrität sicher? 
+  c.	Ändern Sie das Scott-Tiger-Datenbankschema so ab, dass die Referentielle Integrität zwischen den Abteilungen und den Mitarbeitern nicht mehr von der Datenbank überprüft werden kann. Was können sie dadurch machen?
+  d.	Wie ist in der Tabelle die Beziehung eines Mitarbeiters zu seinem Vorgesetzten geregelt? Erweitern Sie das Script, damit die Referentielle Integrität zwischen Mitarbeiter und Vorgesetzten sichergestellt ist. Was ist zu beachten, damit das Script ohne Fehler ausgeführt wird? Ändern Sie es entsprechend ab.
+
+2.	Aggregatsfunktionen
+  a.	Was sind Aggregatsfunktionen? 
+  b.	Beschreiben Sie die Funktionen COUNT(), SUM(), MIN(), MAX(), AVG(). 
+  c.	Wenden Sie die Funktionen auf das Scott-Tiger-Datenbankschema an:
+    i.	Auf die Gehälter des ganzen Unternehmens
+    ii.	Auf die Gehälter jeder einzelnen Abteilung
+
+3.	Joins
+  a.	Aus welchen Basis-Funktionen setzt sich ein Datenbank-Join zusammen?
+  b.	Was ist der Unterschied zwischen einem Inner Join, Left Outer Join und Right Outer Join?
+  c.	Wenden Sie die richtige Join-Funktion auf das Scott-Tiger-Datenbankschema an, um herauszufinden, wer der Vorgesetzte von SMITH ist.
+
+4.	Relationale Tabelle
+  a.	Nennen Sie die Merkmale einer Relationalen Tabelle. Wie unterscheidet sich eine Relationale Tabelle von einer „normalen“ Excel-Tabelle?
+  b.	Welche Informationen müssen beim Anlegen einer Relationalen Tabelle folglich angegeben werden?
+  c.	Welche Merkmale einer Relationalen Tabelle helfen mir beim Zugriff auf die Daten mittels SELECT-Statement?
+
+5.	Datenbankabfragen
+  a.	Welche Teile werden min. in einer Datenbankabfrage benötigt?
+  b.	Welche Teile kann eine Datenbankabfrage beinhalten? Beschreiben Sie diese.
+
+6.	Datenbankdesign
+  a.	Was ist das Ziel des Datenbankdesigns?
+  b.	Sowohl mit der Normalisierung als auch mit der ER-Modellierung stehen Verfahren zum Design einer Datenbank zur Verfügung. 
+    i.	Beschreiben Sie die beiden Verfahren.
+    ii.	Wie unterscheiden sich die beiden Verfahren voneinander?
+  c.	Was versteht man unter einer Normalform?
+  d.	Wann ist eine Tabelle in erster, zweiter oder dritter Normalform?
+
+7.	SQL
+  a.	Wie lassen sich doppelte Datensätze in einer Abfrage vermeiden?
+  b.	Wie lassen sich die Ergebnisse einer Abfrage auf die ersten 3 Datenzeilen beschränken? (z.B. die 3 Bestverdiener im Scott-Tiger-Datenbankschema)
+  c.	Wie lassen sich Spalten in einer Abfrage im Ergebnis vereinen? (z.B. Name und Berufsbezeichnung im Scott-Tiger-Datenbankschema)
+  d.	Nenne 5…
+    i.	String-Funktionen
+    ii.	Number-Funktionen
+    iii.	Datums-Funktionen
+    iv.	Sonstige Funktionen
+  …und teste diese mit dem Scott-Tiger-Datenbankschema.
+
+
+---
+Scott-Tiger-Datenbankschema (für SQLServer)
+
+CREATE TABLE DEPT (
+  DEPTNO INT PRIMARY KEY
+, DNAME NVARCHAR(14) 
+, LOC NVARCHAR(13) 
+);
+
+CREATE TABLE EMP(
+  EMPNO INT PRIMARY KEY
+, ENAME NVARCHAR(10)
+, JOB NVARCHAR(9)
+, MGR INT
+, HIREDATE DATETIME
+, SAL FLOAT
+, COMM FLOAT
+, DEPTNO INT FOREIGN KEY REFERENCES DEPT(DEPTNO)
+);
+
+INSERT INTO DEPT VALUES (10,'ACCOUNTING','NEW YORK');
+INSERT INTO DEPT VALUES (20,'RESEARCH','DALLAS');
+INSERT INTO DEPT VALUES (30,'SALES','CHICAGO');
+INSERT INTO DEPT VALUES (40,'OPERATIONS','BOSTON');
+
+INSERT INTO EMP VALUES (7369,'SMITH','CLERK',7902,'1980-12-17',800,NULL,20);
+INSERT INTO EMP VALUES (7499,'ALLEN','SALESMAN',7698,'1981-02-20',1600,300,30);
+INSERT INTO EMP VALUES (7521,'WARD','SALESMAN',7698,'1981-02-22',1250,500,30);
+INSERT INTO EMP VALUES (7566,'JONES','MANAGER',7839,'1981-04-02',2975,NULL,20);
+INSERT INTO EMP VALUES (7654,'MARTIN','SALESMAN',7698,'1981-09-28',1250,1400,30);
+INSERT INTO EMP VALUES (7698,'BLAKE','MANAGER',7839,'1981-05-01',2850,NULL,30);
+INSERT INTO EMP VALUES (7782,'CLARK','MANAGER',7839,'1981-06-09',2450,NULL,10);
+INSERT INTO EMP VALUES (7788,'SCOTT','ANALYST',7566,'1987-04-19',3000,NULL,20);
+INSERT INTO EMP VALUES (7839,'KING','PRESIDENT',NULL,'1981-11-17',5000,NULL,10);
+INSERT INTO EMP VALUES (7844,'TURNER','SALESMAN',7698,'1981-09-08',1500,0,30);
+INSERT INTO EMP VALUES (7876,'ADAMS','CLERK',7788,'1987-05-23',1100,NULL,20);
+INSERT INTO EMP VALUES (7900,'JAMES','CLERK',7698,'1981-12-03',950,NULL,30);
+INSERT INTO EMP VALUES (7902,'FORD','ANALYST',7566,'1981-12-03',3000,NULL,20);
+INSERT INTO EMP VALUES (7934,'MILLER','CLERK',7782,'1982-01-23',1300,NULL,10);
+
+CREATE TABLE BONUS (
+  ENAME NVARCHAR(10)
+, JOB NVARCHAR(9) 
+, SAL FLOAT
+, COMM FLOAT
+	);
+
+CREATE TABLE SALGRADE( 
+  GRADE INT
+, LOSAL FLOAT
+, HISAL FLOAT
+);
+
+INSERT INTO SALGRADE VALUES (1,700,1200);
+INSERT INTO SALGRADE VALUES (2,1201,1400);
+INSERT INTO SALGRADE VALUES (3,1401,2000);
+INSERT INTO SALGRADE VALUES (4,2001,3000);
+INSERT INTO SALGRADE VALUES (5,3001,9999);
+
+
